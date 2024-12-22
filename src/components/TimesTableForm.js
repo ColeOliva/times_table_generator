@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TimesTableForm({ onGenerate }) {
   const [number, setNumber] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,8 +22,21 @@ function TimesTableForm({ onGenerate }) {
         onChange={(e) => setNumber(e.target.value)}
         min="1"
         required
+        style={{ margin: "10px", padding: "5px", fontSize: "16px" }}
       />
-      <button type="submit">Generate</button>
+      <button
+        type="submit"
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#28A745",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Generate
+      </button>
     </form>
   );
 }

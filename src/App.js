@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import TimesTableForm from "./components/TimesTableForm";
 import TimesTableGrid from "./components/TimesTableGrid";
 import "./styles.css";
@@ -6,21 +12,35 @@ import "./styles.css";
 function App() {
   const [table, setTable] = useState(null);
 
+  return (
+    <Router>
+      <div className="App">
+        <h1>Times Table Generator</h1>
+        <Routes>
+          <Route path="/" element={<HomePage setTable={setTable} />} />
+          <Route
+            path="/table"
+            element={table && <TimesTableGrid tableData={table} />}
+          />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+function HomePage({ setTable }) {
+  const navigate = useNavigate();
+
   const handleGenerate = (number) => {
-    const generatedTable = Array.from({ length: 10 }, (_, i) => ({
-      multiplier: i + 1,
-      result: number * (i + 1),
-    }));
-    setTable({ number, table: generatedTable });
+    const table = Array.from({ length: 48 }, (_, index) => {
+      const multiplier = Math.round(Math.random() * 12);
+      return { multiplier, result: number * multiplier };
+    });
+    setTable({ number, table });
+    navigate("/table"); // Navigate to the table page
   };
 
-  return (
-    <div className="App">
-      <h1>Times Table Generator</h1>
-      <TimesTableForm onGenerate={handleGenerate} />
-      {table && <TimesTableGrid tableData={table} />}
-    </div>
-  );
+  return <TimesTableForm onGenerate={handleGenerate} />;
 }
 
 export default App;

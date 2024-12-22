@@ -1,33 +1,53 @@
-import jsPDF from "jspdf";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles.css";
 
 function TimesTableGrid({ tableData }) {
   const { number, table } = tableData;
-
-  const handleDownload = () => {
-    const doc = new jsPDF();
-    doc.text(`Times Table of ${number}`, 10, 10);
-    table.forEach((row, index) =>
-      doc.text(
-        `${number} x ${row.multiplier} = ${row.result}`,
-        10,
-        20 + index * 10
-      )
-    );
-    doc.save(`Times_Table_${number}.pdf`);
-  };
+  const navigate = useNavigate();
 
   return (
     <div>
       <h2>Times Table of {number}</h2>
-      <ul>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(6, 1fr)",
+          gap: "10px",
+        }}
+      >
         {table.map((row, index) => (
-          <li key={index}>
-            {number} x {row.multiplier} = {row.result}
-          </li>
+          <div
+            key={index}
+            className="numberBorder"
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              backgroundColor: "#f9f9f9",
+            }}
+          >
+            <div className="firstNum">{`${number} `}</div>
+            <div className="secondNum">{`x ${row.multiplier}`}</div>
+          </div>
         ))}
-      </ul>
-      <button onClick={handleDownload}>Download PDF</button>
+      </div>
+      <button
+        onClick={() => navigate("/")}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#007BFF",
+          color: "#fff",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Back
+      </button>
     </div>
   );
 }
