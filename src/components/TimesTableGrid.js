@@ -14,6 +14,7 @@ function TimesTableGrid({ tableData }) {
           display: "grid",
           gridTemplateColumns: "repeat(6, 1fr)",
           gap: "10px",
+          rowGap: "30px",
         }}
       >
         {table.map((row, index) => (
@@ -21,12 +22,12 @@ function TimesTableGrid({ tableData }) {
             key={index}
             className="numberBorder"
             style={{
-              border: "1px solid #ccc",
               padding: "10px",
               display: "flex",
               flexDirection: "column",
               textAlign: "center",
-              backgroundColor: "#f9f9f9",
+              borderBottom: "1px solid #000",
+
             }}
           >
             <div className="firstNum">{`${number} `}</div>
