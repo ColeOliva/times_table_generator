@@ -32,7 +32,7 @@ function HomePage({ setTable }) {
   const navigate = useNavigate();
 
   const handleGenerate = (number) => {
-    const table = Array.from({ length: 48 }, (_, index) => {
+    const table = Array.from({ length: 42 }, (_, index) => {
       const multiplier = Math.round(Math.random() * 12);
       return { multiplier, result: number * multiplier };
     });
